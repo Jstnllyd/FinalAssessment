@@ -79,11 +79,13 @@ table {
     </a>
     <a href="#home" class="w3-bar-item w3-button">Home</a>
     <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> About</a>
-    <a href="#menu" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-menu"></i> Menu</a>
+    <a href="#menu" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-menu"></i> List of Orders</a>
     <a href="#Technological Stack" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> Technological Stack</a>
-    <a href="#Contact Information" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> Contact Information</a>
-    <a href="profile.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-menu"></i> Update Profile</a>
-    <a href="index.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-menu"></i> Logout</a>
+    <a href="#Contact Information" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> Contact Information</a> 
+    
+    <button class="w3-bar-item w3-button w3-hide-small" onclick="Logout()">
+      LogOut
+    </button>
       
     </a>
   </div>
@@ -91,7 +93,7 @@ table {
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
     <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">About</a>
-    <a href="#menu" class="w3-bar-item w3-button" onclick="toggleFunction()">Menu</a>
+    <a href="#menu" class="w3-bar-item w3-button" onclick="toggleFunction()">List of Orders</a>
     <a href="#Technological Stack" class="w3-bar-item w3-button" onclick="toggleFunction()">Technological Stack</a>
     <a href="#Contact Information" class="w3-bar-item w3-button" onclick="toggleFunction()">Contact Information</a>
   </div>
@@ -118,6 +120,7 @@ table {
     cuisine found mostly in the different provinces and municipalities of Northeastern Mindanao.</p>
     
       </div>
+      
       <video class="w3-center" width="450"  controls>
         <source src="C:\Users\miryu\OneDrive\Desktop\progassessment\mangandakita.mp4" type="video/mp4">
       </video>
@@ -125,6 +128,7 @@ table {
     <div class="w3-content w3-container w3-padding-50" id="menu">
   <h3 class="w3-center">Menu</h3>
   <p class="w3-center">Mangan da Kita Food Menu.</p>
+
   <table class="table">
     <thead>
       <tr>
@@ -138,126 +142,183 @@ table {
       <tr>
         <th scope="row">1</th>
         <td>Chicken Adobo</td>
-        <td>50</td>
+        <td>55</td>
         
         
       </tr>
       <tr>
         <th scope="row">2</th>
         <td>Beef Caldereta</td>
-        <td>50</td>
+        <td>60</td>
       </tr>
       <tr>
         <th scope="row">3</th>
         <td>Crispy Pata</td>
-        <td>50</td>
+        <td>80</td>
       </tr>
       <tr>
         <th scope="row">4</th>
         <td>Shrimp Sinigang</td>
-        <td>50</td>
+        <td>95</td>
         
       </tr>
       <tr>
         <th scope="row">5</th>
         <td>Chicken Afritada</td>
-        <td>50</td>
+        <td>55</td>
         
       </tr>
     </tbody>
   </table>
-
-        <section class="container content-section">
-            <h1>Order Here <span class="badge badge-secondary"></span></h1>
-            <div class="container-xxl" style="padding-inline: 25%; ">
-            <div class="row mb-3"> 
-                  <div class="col-md-6">
-                    <label for="validationDefault01" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="datint" required>
-                  </div>
+  <div class="p-5 text-white text-center">
+    <h1 style="color:black">List of Orders</h1>
+    <label>Customer Name:</label> <input id="fnamebox" type="text" class="form-control mb-3" > <br><br>
+    <button id="searchbtn">Search Name</button>
+  </div>
+  
+  
+  <hr>
+  <table class="table" id="tableAppli">
+    
+    
+      <!-- <thead>
+        <tr>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td></td>
+        </tr> -->
+        <!-- <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr> -->
+      <!-- </tbody> -->
+    </table>
+   
+  
+        <script type="module">
+          // Import the functions you need from the SDKs you need
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+          // TODO: Add SDKs for Firebase products that you want to use
+          // https://firebase.google.com/docs/web/setup#available-libraries
         
-                  <div class="col-md-6">
-                    <label for="validationDefault04" class="form-label">Order Type</label>
-                    <select class="form-select" id="orderint" required>
-                        <option selected disabled value="">Choose...</option>
-                        <option value ="Delivery">Delivery</option>
-                        <option value = "Pickup">Pick-up</option>
-                    </select>
-                  </div>
-            </div>
-            <div class="row mb-3"> 
-                  <div class="col-md-12">
-                    <label for="validationDefault02" class="form-label">Customer's Name</label>
-                    <input type="text" class="form-control" id="nameint"  required>
-                  </div>
+          // Your web app's Firebase configuration
+          const firebaseConfig = {
+  
+            apiKey: "AIzaSyATbV1knPemR0ustPVcvlqVzR8MJNaCoCI",
+      authDomain: "progassess.firebaseapp.com",
+      databaseURL: "https://progassess-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "progassess",
+      storageBucket: "progassess.appspot.com",
+      messagingSenderId: "536564572258",
+      appId: "1:536564572258:web:26242a879f4547b5fb313b"
+         };
         
-                  <div class="col-md-12">
-                    <label for="validationDefault05" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="addint" required>
-                  </div>
-                </div>
-                <div class="row mb-3"> 
-                  <div class="col-md-6">
-                    <label for="validationDefault04" class="form-label">Item</label>
-                    <input type="text" class="form-control" id="item1" required>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="validationDefault04" class="form-label">Quantity</label>
-                    <select class="form-select" id="quan1" required>
-                        <option selected disabled value="">Choose...</option>
-                        <option value ="1">1</option>
-                        <option value = "2">2</option>
-                        <option value = "3">3</option>
-                        <option value = "4">4</option>
-                        <option value = "5">5</option>
-                    </select>
-                  </div>
-            </div>
-            <br>
-            <div class="row mb-3"> 
-              <div class="col-md-6">
-                <label for="validationDefault04" class="form-label">Item</label>
-                <input type="text" class="form-control" id="item2" required>
-            </div>
-            <div class="col-md-6">
-                <label for="validationDefault04" class="form-label">Quantity</label>
-                <select class="form-select" id="quan2" >
-                    <option selected disabled value="">Choose...</option>
-                    <option value ="1">1</option>
-                    <option value = "2">2</option>
-                    <option value = "3">3</option>
-                    <option value = "4">4</option>
-                    <option value = "5">5</option>
-                </select>
-            </div>
-            </div>
-            <div class="row mb-3"> 
-            <br>
-            <div class="col-md-6">
-                <label for="validationDefault04" class="form-label">Item</label>
-                <input type="text" class="form-control" id="item3" required>
-            </div>
+          // Initialize Firebase
+          const app = initializeApp(firebaseConfig);
+  
+          import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+          const db = getDatabase();
+  
+          // var unameBox = document.getElementById("uname");
+          // var pwdBox = document.getElementById("pwd");
+  
+    
+            const dbref = ref(db);
+            var CustomersName = document.getElementById("fnamebox");
+            var search = document.getElementById("searchbtn");
             
-            <div class="col-md-6">
-                <label for="validationDefault04" class="form-label">Quantity</label>
-                <select class="form-select" id="quan3" >
-                    <option selected disabled value="">Choose...</option>
-                    <option value ="1">1</option>
-                    <option value = "2">2</option>
-                    <option value = "4">4</option>
-                    <option value = "5">5</option>
-                </select>
-              </div>
-                
-            </div>
-            <div class="col-md-6">
-              <label for="validationDefault04" class="form-label">Total Amount</label>
-              <input type="text" class="form-control" id="amount" required>
-          </div>
-            <br>
-            <button class="btn btn-success w-100 mb-3" type="submit" id="order">Place Order</button>
-          </section>    
+            get(child(dbref,"CustomerOrders/")).then((snapshot)=>{
+              snapshot.forEach(function(childSnapshot) {
 
+                // var cnt = 0;
+                var key = childSnapshot.key;
+  
+                var tableName = document.getElementById("tableAppli");
+                var rowName = tableName.insertRow(0);
+                var cellName = rowName.insertCell(0);
+                var cellName1 = rowName.insertCell(1);
+                var cellName3 = rowName.insertCell(2);
+                var cellName2 = rowName.insertCell(3);
+                
+      
+  
+                // var x = row1.insertRow();
+                cellName.innerHTML = key;
+                // alert(userK);
+                // cnt++;
+               
+
+                get(child(dbref,"CustomerOrders/" + key)).then((snapshot)=>{
+                  var stat = snapshot.child("status").val();
+                cellName1.innerHTML = "Status: " + stat;
+                var type = snapshot.child("OrderType").val();
+                cellName3.innerHTML = "Order Type: " + type;
+                
+                  
+                });
+                var viewOrdersbtn = document.createElement("button");
+                viewOrdersbtn.className = "btn btn-info";
+                viewOrdersbtn.style = "color: white";
+                viewOrdersbtn.name = key;
+                viewOrdersbtn.onclick = function() {
+                set(ref(db, 'SelectedForm/'), {
+                  user: viewOrdersbtn.name
+                })
+                window.location = "./viewOrders.html";
+              };
+  
+                viewOrdersbtn.innerHTML = "View Details";
+                cellName2.appendChild(viewOrdersbtn);
+                
+                
+  
+              });
+                
+              
+              
+              })
+              function SelectData(){
+                const dbref = ref(db);
+
+                get(child(dbref,"CustomerOrders/" + CustomersName.value)).then((snapshot)=>{
+                    if(snapshot.exists()){
+                      
+               var tableName = document.getElementById("tableAppli");
+                var rowName = tableName.insertRow(0);
+                var cellName = rowName.insertCell(0);
+                var cellName1 = rowName.insertCell(1);
+                var cellName2 = rowName.insertCell(2);
+                        alert("Data has been Selected");
+                    }
+                    else{   
+                        alert("No data found");
+                    }
+                })
+                .catch((error)=>{
+                    alert("error"+ error);
+                });
+            }
+              searchbtn .addEventListener('click', SelectData);
+
+           
+          
+  
+  
+        </script>
+
+            
 
   
 
@@ -323,80 +384,7 @@ table {
     
   </footer>
 
-<script type="module">
-     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-analytics.js";
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-          
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-          apiKey: "AIzaSyATbV1knPemR0ustPVcvlqVzR8MJNaCoCI",
-         authDomain: "progassess.firebaseapp.com",
-        databaseURL: "https://progassess-default-rtdb.asia-southeast1.firebasedatabase.app",
-       projectId: "progassess",
-        storageBucket: "progassess.appspot.com",
-        messagingSenderId: "536564572258",
-        appId: "1:536564572258:web:26242a879f4547b5fb313b"
-        };
-                
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-    
-            import { getDatabase, ref, set, child, get, update, remove } 
-                from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
-    
-            const db = getDatabase();
-
-            const date = document.getElementById('datint');
-            const orderType = document.getElementById('orderint');
-            const customerName = document.getElementById('nameint');
-            const address = document.getElementById('addint');
-
-            const order1 = document.getElementById('item1');
-            const order2 = document.getElementById('item2');
-            const order3 = document.getElementById('item3');
-
-            const quantity1 = document.getElementById('quan1');
-            const quantity2 = document.getElementById('quan2');
-            const quantity3 = document.getElementById('quan3');
-            const total = document.getElementById('amount');
-
-            const placeorder = document.getElementById('order');
-
-
-            function InsertData(){
-
-             
-            set(ref(db, "CustomerOrders/"+ customerName.value),{
-
-              
-
-              Date: date.value,
-              // OrderNo: order.value,
-              OrderType: orderType.value,
-              CustomersName: customerName.value,
-              CustomerAddress: address.value,
-              item1 : order1.value,
-              quan1 : quantity1.value,
-              item2 : order2.value,
-              quan2 : quantity2.value,
-              item3 : order3.value,
-              quan3 : quantity3.value,
-              amount: total.value,
-              status : "Pending",
-            }
-            )
-            .then(()=>{
-              alert("Placed Order Successfully");
-            })
-            .catch((error)=>{
-              alert("error"+ error);
-            })
-        }
-        placeorder.addEventListener('click', InsertData);
-
-
+<script>
 
 
 // Modal Image Gallery
@@ -410,7 +398,7 @@ function onClick(element) {
 function Logout() {
         sessionStorage.removeItem("user");
         localStorage.removeItem("user");
-        window.location = "index.html";
+        window.location = "admin.html";
       }
 
 // Change style of navbar on scroll

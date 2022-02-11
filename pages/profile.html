@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+</head>
+<style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+    body, html {
+      height: 100%;
+      color: rgb(0, 0, 0);
+      line-height: 1.8;
+    }
+    video {margin-left: 520px;}
+    
+    
+    /* Create a Parallax Effect */
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    
+    
+    table {
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    
+    }
+    
+    /* First image (Logo. Full height) */
+    .bgimg-1 {
+      background-image: url('/w3images/parallax1.jpg');
+      min-height: 100%;
+    }
+    
+    /* Second image (Technological Stack) */
+    .bgimg-2 {
+      background-image: url("/w3images/parallax2.jpg");
+      min-height: 400px;
+    }
+    
+    /* Third image (Contact Information) */
+    .bgimg-3 {
+      background-image: url("/w3images/parallax3.jpg");
+      min-height: 400px;
+    }
+    
+    
+    .w3-wide {letter-spacing: 10px;}
+    .w3-hover-opacity {cursor: pointer;}
+    
+    /* Turn off parallax scrolling for tablets and phones */
+    @media only screen and (max-device-width: 1600px) {
+      .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+        min-height: 400px;
+      }
+    }
+    </style>
+
+<body>
+
+    <div class="w3-top">
+        <div class="w3-bar w3-blue" id="myNavbar">
+          <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+            <i class="fa fa-bars"></i>
+          </a>
+          <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium"></div>
+          <a href="Home.html" class="w3-bar-item w3-button">Home</a>
+          
+          <a href="index.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i>Logout</a>
+    <div class="mb-5">
+        <h3 class="mb-3"> Update Profile </h3>
+        
+        <label>Username:</label> <input id="usebox" type="text"> <br><br> 
+     <label>First Name:</label> <input id="fnamebox" type="text" class="form-control mb-3" > <br><br>
+    <label>Last Name:</label> <input id="lnamebox" type="text"> <br><br>
+    <label>Email:</label> <input id="embox" type="text"> <br><br>
+    <label>cnumber:</label> <input id="conbox" type="text"> <br><br>
+    
+    </div>
+
+
+
+
+
+<!-- 
+    <label>Name</label> <input id="Namebox" type="text"> <br><br>
+    <label>RollNo</label> <input id="Rollbox" type="text"> <br><br>
+    <label>Section</label> <input id="Secbox" type="text"> <br><br>
+    <label>Gender</label> 
+    <select id="Genbox">
+        <option value="Male"> Male</option>
+        <option value="Female"> Female</option>
+    </select> 
+-->
+
+    <hr>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updbtn">UPDATE</button>
+    <button id="Delbtn">DELETE</button>
+
+    <script type="module">
+       // Import the functions you need from the SDKs you need
+       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+     apiKey: "AIzaSyATbV1knPemR0ustPVcvlqVzR8MJNaCoCI",
+        authDomain: "progassess.firebaseapp.com",
+        databaseURL: "https://progassess-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "progassess",
+        storageBucket: "progassess.appspot.com",
+        messagingSenderId: "536564572258",
+        appId: "1:536564572258:web:26242a879f4547b5fb313b"
+  };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import { getDatabase, ref, set, child, get, update, remove } 
+            from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
+
+        const db = getDatabase();
+
+        var fname = document.getElementById("fnamebox");
+        var lname = document.getElementById("lnamebox");
+        var email = document.getElementById("embox");
+        var cnumber = document.getElementById("conbox");
+        var username = document.getElementById("usebox");
+
+            // var namebox = document.getElementById("Namebox");
+            // var rollbox = document.getElementById("Rollbox");
+            // var secbox = document.getElementById("Secbox");
+            // var genbox = document.getElementById("Genbox");
+
+            var selBtn = document.getElementById("Selbtn");
+            var updBtn = document.getElementById("Updbtn");
+            var delBtn = document.getElementById("Delbtn");
+
+            
+            function SelectData(){
+                const dbref = ref(db);
+
+                get(child(dbref,"Users/" + username.value)).then((snapshot)=>{
+                    if(snapshot.exists()){
+                        fname.value = snapshot.val().fname;
+                        lname.value = snapshot.val().lname;
+                        email.value = snapshot.val().email;
+                        cnumber.value = snapshot.val().cnumber;
+                        alert("Data has been Selected");
+                    }
+                    else{   
+                        alert("No data found");
+                    }
+                })
+                .catch((error)=>{
+                    alert("error"+ error);
+                });
+            }
+            function UpdateData(){
+                
+                update(ref(db, "Users/"+username.value),{
+                    fname: fname.value,
+                    lname: lname.value,
+                    cnumber: cnumber.value,
+                    email: email.value,
+                  
+                })
+                .then(()=>{
+                    alert("Updated Sucessfully!");
+                    window.location = "Home.html";
+                })
+                .catch((error)=>{
+                    alert("error"+ error);
+                })
+            }
+            function DeleteData(){
+                remove(ref(db, "Users/"+username.value),{
+                })
+                .then(()=>{
+                    alert("Data Removed");
+                    window.location = "index.html";
+                })
+                .catch((error)=>{
+                    alert("error"+ error);
+                })
+            }
+         
+            selBtn.addEventListener('click', SelectData);
+            updBtn.addEventListener('click', UpdateData);
+            delBtn.addEventListener('click', DeleteData);
+      </script>
+</body>
+</html>

@@ -22,15 +22,11 @@
       </div>
     
     <div class="mb-5">
-        <h3 class="mb-3"> Sign Up </h3>
-        <input type="text" placeholder="First Name" id="fnameInp" class="form-control mb-3">
-        <input type="text" placeholder="Last Name" id="lnameInp" class="form-control mb-3">
-        <input type="text" placeholder="Contact Number" id="cnumInp" class="form-control mb-3">
-        <input type="text" placeholder="Email" id="emailInp" class="form-control mb-3">
+        <h3 class="mb-3">Admin  Sign Up </h3>
         <input type="text" placeholder="Username" id="userInp" class="form-control mb-3">
         <input type="password" placeholder="Password" id="passInp" class="form-control mb-3">
         <button  type="text" id="sub_btn" class="btn w-100 btn-outline-primary mb-3">Sign Up</button>
-        <a href="index.html" id="btn" class="btn w-100 btn-outline-primary mb-3">Already have an account? Sign In</a> 
+        <a href="admin.html" id="btn" class="btn w-100 btn-outline-primary mb-3">Already ad Admin? Sign In</a> 
   
         
 
@@ -55,11 +51,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase
         import { getDatabase, ref, set, get, child} from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
               const db = getDatabase();
       //const
-      
-      const fname = document.getElementById("fnameInp");
-      const lname = document.getElementById("lnameInp");
-      const contactnumber = document.getElementById("cnumInp");
-      const email = document.getElementById("emailInp");
       const username = document.getElementById("userInp");
       const pass = document.getElementById("passInp");
       const submit = document.getElementById("sub_btn");
@@ -71,46 +62,23 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase
       }
 
       function Validation() {
-        let fnameregex = /^[a-zA-Z\s]+$/;
-        let lnameregex = /^[a-zA-Z\s]+$/;
-        let cnumberregex = /^[0-9]{11}$/;
-        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        
         let userregex = /^[a-zA-Z0-9]{5,}$/;
 
         if (
-          Empty(fname.value) ||
-          Empty(lname.value) ||
-          Empty(contactnumber.value) ||
-          Empty(email.value) ||
           Empty(username.value) ||
           Empty(pass.value)
         ) {
           alert("Fill In All Fields");
           return false;
         }
-        if (!fnameregex.test(fname.value)) {
-          alert("First Name Should Contain Letters Only!");
-          return false;
-        }
-        if (!lnameregex.test(lname.value)) {
-          alert("Last Name Should Contain Letters Only!");
-          return false;
-        }
-        if (!cnumberregex.test(contactnumber.value)) {
-          alert("Enter a valid Phone Number!");
-          return false;
-        }
-        if (!emailregex.test(email.value)) {
-          alert("Enter a valid Email Address");
-          return false;
-        }
-
+       
         return true;
       }
 
       //REGISTER USER TO FIREBASE
 
-      function RegisterUser() {
+      function RegisterAdmin() {
         //return goes wrong then it will return this function
         if (!Validation()) {
           return;
@@ -118,21 +86,17 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase
 
         const dbRef = ref(db);
 
-        get(child(dbRef, "Users/" + username.value)).then((snapshot) => {
+        get(child(dbRef, "Admins/" + username.value)).then((snapshot) => {
           if (snapshot.exists()) {
-            alert("User Already Exists!");
+            alert("Admin Already Exists!");
           } else {
-            set(ref(db, "Users/" + username.value), {
-              fname: fname.value,
-              lname: lname.value,
-              cnumber: contactnumber.value,
-              email: email.value,
+            set(ref(db, "Admins/" + username.value), {
               username: username.value,
               password: encryptPassword(),
             })
               .then(() => {
-                alert("User Register Successfully");
-                window.location = "index.html";
+                alert("Admin Register Successfully");
+                window.location = "admin.html";
               })
               .catch((error) => {
                 alert("error" + error);
@@ -141,7 +105,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase
         });
       }
 
-      submit.addEventListener("click", RegisterUser);
+      submit.addEventListener("click", RegisterAdmin);
 
       function encryptPassword() {
         var encryptpass = CryptoJS.AES.encrypt(pass.value, pass.value);

@@ -20,12 +20,12 @@
   </div>
 
     <div class="mb-5">
-        <h3 class="mb-3">User Login</h3>
+        <h3 class="mb-3">Admin Login</h3>
         <input type="text" placeholder="Username" id="userInp" class="form-control mb-3">
         <input type="password" placeholder="Password" id="passInp" class="form-control mb-3">
         <button type="text" id="sub_btn" class="btn w-100 btn-outline-primary mb-3">Login</button>
-        <a href="Register.html" id="btn" class="btn w-100 btn-outline-primary mb-3">No Account yet? Sign Up here</a>
-        <a href="admin.html" id="btn" class="btn w-100 btn-outline-primary mb-3">Log in as Admin</a> 
+        <a href="AdminRegister.html" id="btn" class="btn w-100 btn-outline-primary mb-3">Admin Register</a>
+        <a href="index.html" id="btn" class="btn w-100 btn-outline-primary mb-3">Log in as User</a> 
         
     </div>
 
@@ -62,11 +62,11 @@
                 function AuthenticateUser(){
                     const dbRef = ref(db);
 
-                    get(child(dbRef,"Users/"+ username.value)).then((snapshot)=>{
+                    get(child(dbRef,"Admins/"+ username.value)).then((snapshot)=>{
                         if(snapshot.exists()){
                             let dbpass = decPassword(snapshot.val().password);
                             if (dbpass == pass.value){
-                                login(snapshot.val());1
+                                login(snapshot.val());
                                 alert("Successfully Logged In")
                             }
                             else{
@@ -92,7 +92,7 @@
         function login(user) {
         sessionStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("user", JSON.stringify(user));
-        window.location = "Home.html";
+        window.location = "AdminHome.html";
       }
 
 

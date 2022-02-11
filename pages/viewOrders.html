@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+  
+</style>
+<body>
+
+  <div class="w3-top">
+    <div class="w3-bar w3-blue" id="myNavbar">
+      <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+        <i class="fa fa-bars"></i>
+      </a>
+      <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium"></div>
+      <a href="AdminHome.html" class="w3-bar-item w3-button">Home</a>
+      
+      <a href="admin.html" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i>Logout</a>
+
+
+ 
+    <section class="container content-section">
+        <h1>Order Details <span class="badge badge-secondary"></span></h1>
+        <div class="container-xxl" style="padding-inline: 25%; ">
+        <div class="row mb-3"> 
+              <div class="col-md-6">
+                <label for="validationDefault01" class="form-control mb-3">Date:</label>
+                <input type="date" class="form-control" id="datint" required> 
+              </div>
+              <br>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                    <label for="validationDefault01" class="form-label">Order Type:</label>
+                    <input type="text" class="form-control" id="orderint" required>
+                  </div>
+                  <br>
+              </div>
+        </div>
+        <div class="row mb-3"> 
+              <div class="col-md-12">
+                <label for="validationDefault02" class="form-label">Customer's Name:</label>
+                <input type="text" class="form-control" id="nameint"  required>
+              </div>
+              <br>
+    
+              <div class="col-md-12">
+                <label for="validationDefault05" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="addint" required>
+              </div>
+              <br>
+            </div>
+            <div class="row mb-3"> 
+              <div class="col-md-6">
+                <label for="validationDefault04" class="form-label">Item 1:</label>
+                <input type="text" class="form-control" id="item1" required>
+              </div>
+              <br>
+              <div class="col-md-6">
+                <div class="col-md-6">
+                    <label for="validationDefault04" class="form-label">Quantity:</label>
+                    <input type="text" class="form-control" id="quan1" required>
+                  </div>
+                  
+              </div>
+        </div>
+        <br>
+        <div class="row mb-3"> 
+          <div class="col-md-6">
+            <label for="validationDefault04" class="form-label">Item 2:</label>
+            <input type="text" class="form-control" id="item2" required>
+        </div>
+        <br>
+        <div class="col-md-6">
+            <div class="col-md-6">
+              <label for="validationDefault04" class="form-label">Quantity:</label>
+              <input type="text" class="form-control" id="quan2" required>
+            </div>
+        </div>
+        </div>
+        <div class="row mb-3"> 
+        <br>
+        <div class="col-md-6">
+            <label for="validationDefault04" class="form-label">Item 3:</label>
+            <input type="text" class="form-control" id="item3" required>
+        </div>
+        <br>
+        <div class="col-md-6">
+          <div class="col-md-6">
+            <label for="validationDefault04" class="form-label">Quantity</label>
+            <input type="text" class="form-control" id="quan3" required>
+          </div>
+          </div>
+        </div>
+        <br>
+        <div class="col-md-6">
+          <label for="validationDefault04" class="form-label">Total Amount</label>
+          <input type="text" class="form-control" id="amount" required>
+      </div>
+        <br>
+        <button class="btn btn-success w-100 mb-3" type="submit" id="order">Delivered</button>
+        <button class="btn btn-success w-100 mb-3" type="submit" id="pick">Pick Up</button>
+      </section>    
+
+
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // htt˜ps://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyATbV1knPemR0ustPVcvlqVzR8MJNaCoCI",
+         authDomain: "progassess.firebaseapp.com",
+         databaseURL: "https://progassess-default-rtdb.asia-southeast1.firebasedatabase.app",
+         projectId: "progassess",
+             storageBucket: "progassess.appspot.com",
+         messagingSenderId: "536564572258",
+        appId: "1:536564572258:web:26242a879f4547b5fb313b"
+          
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+        const db = getDatabase();
+
+
+
+
+        const dbref = ref(db);
+            
+          get(child(dbref,"SelectedForm/")).then((snapshot)=>{
+               var ki = snapshot.child("user").val();
+          
+              get(child(dbref,"CustomerOrders/" + ki)).then((snapshot)=>{
+                var cnameintbox = snapshot.child("CustomersName").val();
+                var caddintbox = snapshot.child("CustomerAddress").val();
+                var corderintbox = snapshot.child("OrderType").val();
+                var datintbox = snapshot.child("Date").val();
+                var quan1box = snapshot.child("quan1").val();
+                var item1box = snapshot.child("item1").val();
+                var quan2box = snapshot.child("quan2").val();
+                var item2box = snapshot.child("item2").val();
+                var quan3box = snapshot.child("quan3").val();
+                var item3box = snapshot.child("item3").val();
+                var amountbox = snapshot.child("amount").val();
+
+
+                document.getElementById("nameint").value = cnameintbox;
+                document.getElementById("nameint").disabled = true;
+                document.getElementById("addint").value = caddintbox;
+                document.getElementById("addint").disabled = true;
+                document.getElementById("datint").value = datintbox;
+                document.getElementById("datint").disabled = true;
+                document.getElementById("orderint").value = corderintbox;
+                document.getElementById("orderint").disabled = true;
+                document.getElementById("quan1").value = quan1box;
+                document.getElementById("quan1").disabled = true;
+                document.getElementById("item1").value = item1box;
+                document.getElementById("item1").disabled = true;
+                document.getElementById("item2").value = item2box;
+                document.getElementById("item2").disabled = true;
+                document.getElementById("quan2").value = quan1box;
+                document.getElementById("quan2").disabled = true;
+                document.getElementById("item3").value = item3box;
+                document.getElementById("item3").disabled = true;
+                document.getElementById("quan3").value = quan3box;
+                document.getElementById("quan3").disabled = true;
+                document.getElementById("amount").value = amountbox;
+                document.getElementById("amount").disabled = true;
+
+
+              })
+            });
+            
+        function orderDelivered(){
+          get(child(dbref,"SelectedForm/")).then((snapshot)=>{
+               var ki = snapshot.child("user").val();
+              update(ref(db, 'CustomerOrders/' + ki), {
+                    status: "Delivered"
+                })
+                .then(()=>{
+                    alert("Order has been Delivered");
+                    // go to another file
+                    window.location = "./AdminHome.html";
+                })
+                .catch(()=>{
+                    alert("unsuccessful, error");
+            });
+          })
+        }
+        function orderPicked(){
+          get(child(dbref,"SelectedForm/")).then((snapshot)=>{
+               var ki = snapshot.child("user").val();
+              update(ref(db, 'CustomerOrders/' + ki), {
+                    status: "Pick up"
+                })
+                .then(()=>{
+                    alert("Order has been Pick up");
+                    // go to another file
+                    window.location = "./AdminHome.html";
+                })
+                .catch(()=>{
+                    alert("unsuccessful, error");
+            });
+          })
+        }
+
+             order.addEventListener('click', orderDelivered);
+             pick.addEventListener('click', orderPicked);
+        </script>
+    
+</body>
+</html>
